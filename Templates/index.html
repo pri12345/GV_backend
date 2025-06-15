@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My System</title>
+</head>
+<body>
+    <h1>Welcome to My System</h1>
+    <p id="message"></p>
+    <script>
+        fetch('/api/hello')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').innerText = data.message;
+            });
+    </script>
+</body>
+</html>

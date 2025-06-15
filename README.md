@@ -23,7 +23,4 @@ To run the app on development mode, run:
 
         python app.py
 
-and open:
-        http://localhost:5000
-
-on your web browser.
+and open http://localhost:5000 on your web browser.

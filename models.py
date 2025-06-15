@@ -10,7 +10,7 @@ class Item(db.Model):
     stock_quantity = db.Column(db.Integer, nullable=False, default=0)
     description = db.Column(db.String(200), nullable=True)
 
-class Sale(db.model):
+class Sale(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
     sale_quantity = db.Column(db.Integer, nullable=False)

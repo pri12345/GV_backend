@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales List</title>
+</head>
+<body>
+    <h1>Sales List</h1>
+    <ul>
+        {% for sale in sales %}
+            <li>Item ID: {{ sale.item_id }} - Quantity: {{ sale.quantity }} - Total: {{ sale.total }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

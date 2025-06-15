@@ -16,3 +16,14 @@ To ensure proper functionality, do the following:
 
         Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
         Get-ExecutionPolicy  ## Should say 'RemoteSigned'
+
+
+
+To run the app on development mode, run:
+
+        python app.py
+
+and open:
+        http://localhost:5000
+
+on your web browser.

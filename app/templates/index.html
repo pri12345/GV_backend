@@ -14,12 +14,16 @@
         </header>
 
         <nav class="nav-container">
-            <a href="{{ url_for('list_items') }}" class="nav-button">View Items</a>
-            <a href="{{ url_for('list_sales') }}" class="nav-button">View Sales</a>
-            <a href="{{ url_for('list_stock_additions') }}" class="nav-button">View Stock Additions</a>
-            <a href="{{ url_for('show_add_item_form') }}" class="nav-button">Add New Item</a>
-            <a href="{{ url_for('show_record_sale_form') }}" class="nav-button">Record New Sale</a>
-            <a href="{{ url_for('show_add_stock_form') }}" class="nav-button">Add Stock</a>
+            <a href="{{ url_for('api.list_items') }}" class="nav-button">View Items</a>
+            <a href="{{ url_for('api.list_sales') }}" class="nav-button">View Sales</a>
+            <a href="{{ url_for('api.list_stock_additions') }}" class="nav-button">View Stock Additions</a>
+            <a href="{{ url_for('api.list_suppliers') }}" class="nav-button">Suppliers</a>
+            <a href="{{ url_for('api.show_add_item_form') }}" class="nav-button">Add New Item</a>
+            <a href="{{ url_for('api.show_record_sale_form') }}" class="nav-button">Record New Sale</a>
+            <a href="{{ url_for('api.show_add_stock_form') }}" class="nav-button">Add Stock</a>
+            <a href="{{ url_for('api.list_rubros') }}" class="nav-button">Rubros</a>
+            <a href="{{ url_for('api.show_informe') }}" class="nav-button">Informe recientes</a>
+            <a href="{{ url_for('api.show_understocked') }}" class="nav-button">Understocked Items</a>
         </nav>
 
         <div class="message" id="message"></div>
@@ -30,7 +34,7 @@
     </div>
 
     <script>
-        fetch('/api/hello')
+        fetch('/api/v1/api/hello')
             .then(response => response.json())
             .then(data => {
                 const messageElement = document.getElementById('message');

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Rubro - Wholesale Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Add New Rubro</h1>
+        </header>
+
+        <div class="form-container">
+            <form action="{{ url_for('api.add_rubro') }}" method="POST">
+                <div class="form-group">
+                    <label for="name">Rubro Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="id">ID:</label>
+                    <input type="number" id="id" name="id" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categorias">Categorías (no exhaustivo):</label>
+                    <textarea id="categorias" name="categorias" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-button">Add Rubro</button>
+            </form>
+        </div>
+
+        <nav class="nav-container">
+            <a href="{{ url_for('api.list_rubros') }}" class="nav-button">Back to Rubros</a>
+            <a href="{{ url_for('api.home') }}" class="nav-button">Back to Home</a>
+        </nav>
+    </div>
+</body>
+</html> 

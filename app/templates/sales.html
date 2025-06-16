@@ -19,11 +19,11 @@
                         <th>Sale ID</th>
                         <th>Item ID</th>
                         <th>Quantity</th>
-                        <th>Sale Price</th>
-                        <th>Total</th>
-                        <th>Timestamp</th>
+                        <th>Actual Price</th>
                         <th>Suggested Price</th>
                         <th>Price Deviation</th>
+                        <th>Total</th>
+                        <th>Timestamp</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,14 +31,14 @@
                     <tr>
                         <td>{{ sale.id }}</td>
                         <td>{{ sale.item_id }}</td>
-                        <td>{{ sale.quantity }} units</td>
+                        <td>{{ sale.quantity }}</td>
                         <td>${{ "%.2f"|format(sale.actual_price) }}</td>
-                        <td>${{ "%.2f"|format(sale.total) }}</td>
-                        <td>{{ sale.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
                         <td>${{ "%.2f"|format(sale.suggested_price) }}</td>
                         <td class="{{ 'success' if sale.price_deviation >= 0 else 'error' }}">
-                            ${{ "%.2f"|format(sale.price_deviation) }}
+                            {{ "%.1f"|format(sale.price_deviation) }}%
                         </td>
+                        <td>${{ "%.2f"|format(sale.total) }}</td>
+                        <td>{{ sale.timestamp }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -46,8 +46,8 @@
         </div>
 
         <nav class="nav-container">
-            <a href="{{ url_for('home') }}" class="nav-button">Back to Home</a>
-            <a href="{{ url_for('show_record_sale_form') }}" class="nav-button">Record New Sale</a>
+            <a href="{{ url_for('api.home') }}" class="nav-button">Back to Home</a>
+            <a href="{{ url_for('api.show_record_sale_form') }}" class="nav-button">Record New Sale</a>
         </nav>
     </div>
 </body>

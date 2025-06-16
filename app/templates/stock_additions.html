@@ -3,34 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Item List - Wholesale Management System</title>
+    <title>Stock Additions - Wholesale Management System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>Item List</h1>
+            <h1>Stock Additions</h1>
         </header>
 
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
+                        <th>Movement ID</th>
                         <th>Item ID</th>
-                        <th>Name</th>
-                        <th>Cost</th>
-                        <th>Price</th>
-                        <th>Stock</th>
+                        <th>Additional Stock</th>
+                        <th>Timestamp</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in items %}
+                    {% for addition in stock_additions %}
                     <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>${{ "%.2f"|format(item.cost) }}</td>
-                        <td>${{ "%.2f"|format(item.price) }}</td>
-                        <td>{{ item.stock }} units</td>
+                        <td>{{ addition.id }}</td>
+                        <td>{{ addition.item_id }}</td>
+                        <td>{{ addition.additional_stock }} units</td>
+                        <td>{{ addition.timestamp }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -38,8 +36,8 @@
         </div>
 
         <nav class="nav-container">
-            <a href="{{ url_for('home') }}" class="nav-button">Back to Home</a>
-            <a href="{{ url_for('show_add_item_form') }}" class="nav-button">Add New Item</a>
+            <a href="{{ url_for('api.home') }}" class="nav-button">Back to Home</a>
+            <a href="{{ url_for('api.show_add_stock_form') }}" class="nav-button">Add Stock</a>
         </nav>
     </div>
 </body>

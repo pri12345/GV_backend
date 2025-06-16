@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubros - Wholesale Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .rubros-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .rubro-list {
+            flex: 1;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .rubro-details {
+            flex: 2;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .rubro-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .rubro-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .rubro-item.active {
+            background-color: #e9ecef;
+        }
+
+        .form-container {
+            max-width: none;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .items-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .item-entry {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-entry:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Rubros Management</h1>
+        </header>
+
+        <div class="rubros-container">
+            <!-- Rubro List -->
+            <div class="rubro-list">
+                <h2>Rubros</h2>
+                {% for rubro in rubros %}
+                <div class="rubro-item" data-id="{{ rubro.id }}" onclick="loadRubroDetails({{ rubro.id }})">
+                    {{ rubro.name }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Rubro Details -->
+            <div class="rubro-details">
+                <h2>Rubro Details</h2>
+                <div class="form-container">
+                    <form id="rubroForm">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id">ID:</label>
+                            <input type="text" id="id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categorias">Categories:</label>
+                            <textarea id="categorias" readonly rows="4"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Items in this Rubro:</label>
+                            <div class="items-list" id="itemsList">
+                                <!-- Items will be populated here -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="button-container">
+                    <a href="{{ url_for('api.show_add_rubro_form') }}" class="nav-button">Add New Rubro</a>
+                    <a href="{{ url_for('api.home') }}" class="nav-button">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadRubroDetails(rubroId) {
+            // Remove active class from all items
+            document.querySelectorAll('.rubro-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active class to clicked item
+            event.currentTarget.classList.add('active');
+
+            // Fetch rubro details
+            fetch(`/api/v1/rubros/${rubroId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('id').value = data.id;
+                    document.getElementById('categorias').value = data.categorias || '';
+                    
+                    // Update items list
+                    const itemsList = document.getElementById('itemsList');
+                    itemsList.innerHTML = '';
+                    if (data.items && data.items.length > 0) {
+                        data.items.forEach(item => {
+                            const itemEntry = document.createElement('div');
+                            itemEntry.className = 'item-entry';
+                            itemEntry.textContent = item.name;
+                            itemsList.appendChild(itemEntry);
+                        });
+                    } else {
+                        itemsList.innerHTML = '<div class="item-entry">No items in this rubro</div>';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html> 

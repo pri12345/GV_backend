@@ -150,6 +150,35 @@ tr:hover {
     border: 1px solid #f5c6cb;
 }
 
+/* Submit Button */
+.submit-button {
+    display: inline-block;
+    width: 100%;
+    padding: 12px 24px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.submit-button:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {

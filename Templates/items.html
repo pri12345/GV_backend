@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Item List</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .nav-button { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            margin: 5px; 
+            background-color: #007bff; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+        }
+        .nav-button:hover { background-color: #0056b3; }
+    </style> 
 </head>
 <body>
     <h1>Item List</h1>
     <ul>
         {% for item in items %}
-            <li>{{ item.name }} - Cost: {{ item.cost }} - Price: {{ item.price }} - Quantity: {{ item.stock_quantity }}</li>
+            <li>{{ item.name }} - Item ID: {{ item.id }} - Cost: ${{ item.cost }} - Price: ${{ item.price }} - Quantity: {{ item.stock }} units</li>
         {% endfor %}
     </ul>
+
+    <br><br>
+    <a href="{{ url_for('home') }}" class="nav-button">Home</a>
 </body>
 </html>

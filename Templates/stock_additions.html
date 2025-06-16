@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Item</title>
+    <title>Stock Additions</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         .nav-button { 
@@ -18,16 +18,14 @@
     </style> 
 </head>
 <body>
-    <h1>Add New Item</h1>
-    <form method="POST" action="/add_item">
-        <label>Name: <input type="text" name="name"></label><br>
-        <label>ID: <input type="number" name="id"></label><br>
-        <label>Cost: <input type="number" step="0.01" name="cost"></label><br>
-        <label>Price: <input type="number" step="0.01" name="price"></label><br>
-        <label>Quantity: <input type="number" name="stock"></label><br>
-        <button type="submit">Add Item</button>
-        
-    </form><br><br>
+    <h1>Stock Additions</h1>
+    <ul>
+        {% for movement in stock_additions %}
+            <li>Item Added ID: {{ movement.item_id }} - Quantity added: {{ movement.additional_stock }} units - Movement number: {{movement.id}} - Movement timestamp: {{movement.timestamp}}</li>
+        {% endfor %}
+    </ul>
+
+    <br><br>
     <a href="{{ url_for('home') }}" class="nav-button">Home</a>
 </body>
 </html>

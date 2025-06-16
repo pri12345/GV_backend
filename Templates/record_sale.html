@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Item</title>
+    <title>Record Sale</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
         .nav-button { 
@@ -18,16 +18,15 @@
     </style> 
 </head>
 <body>
-    <h1>Add New Item</h1>
-    <form method="POST" action="/add_item">
-        <label>Name: <input type="text" name="name"></label><br>
-        <label>ID: <input type="number" name="id"></label><br>
-        <label>Cost: <input type="number" step="0.01" name="cost"></label><br>
+    <h1>Record new sale</h1>
+    <form method="POST" action="/record_sale">
+        <label>Item ID: <input type="number" step="1" name="item_id"></label><br>
         <label>Price: <input type="number" step="0.01" name="price"></label><br>
-        <label>Quantity: <input type="number" name="stock"></label><br>
-        <button type="submit">Add Item</button>
-        
-    </form><br><br>
+        <label>Quantity: <input type="number" name="quantity"></label><br>
+        <button type="submit">Record Sale</button>
+    </form>
+
+    <br><br>
     <a href="{{ url_for('home') }}" class="nav-button">Home</a>
 </body>
 </html>

@@ -15,14 +15,34 @@
             border-radius: 5px; 
         }
         .nav-button:hover { background-color: #0056b3; }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            margin-right: 10px;
+        }
+        .suggestion {
+            margin-left: 10px;
+            color: gray;
+            font-style: italic;
+        }
     </style> 
 </head>
 <body>
     <h1>Add stock</h1>
+  
     <form method="POST" action="/add_stock">
-        <label>Item ID: <input type="number" step="1" name="item_id"></label><br>
-        <label>Additional Stock: <input type="number" step="1" name="additional_stock"></label><br>
-        
+        <div class="form-group">
+            <label>Item ID: <input type="number" step="1" name="item_id"></label>
+        </div>
+        <div class="form-group">
+            <label>Additional Stock:<input type="number" step="1" name="additional_stock"></label>
+          
+        </div>
+    
         <button type="submit">Add Stock</button>
     </form>
 

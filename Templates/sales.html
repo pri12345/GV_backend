@@ -15,15 +15,40 @@
             border-radius: 5px; 
         }
         .nav-button:hover { background-color: #0056b3; }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            margin-right: 10px;
+        }
+        .suggestion {
+            margin-left: 10px;
+            color: gray;
+            font-style: italic;
+        }
     </style> 
 </head>
 <body>
     <h1>Sales List</h1>
-    <ul>
+    <p>
         {% for sale in sales %}
-            <li>Item ID: {{ sale.item_id }} - Quantity: {{ sale.quantity }} units - Total: ${{ sale.total }} - Sale number: {{sale.id}} - Sale timestamp: {{sale.timestamp}}</li>
+        
+                Sale number: {{sale.id}}<br>
+                Item ID: {{ sale.item_id }} <br>
+                Quantity: {{ sale.quantity }} units<br>
+                Sale Price: ${{ sale.actual_price }} <br>
+                Total: ${{ sale.total }}<br>
+                
+                Sale timestamp: {{sale.timestamp}} <br>
+                Suggested Price: ${{ sale.suggested_price }} <br>
+                Price deviation: ${{ sale.price_deviation }} <br><br><br>
+            
+            
         {% endfor %}
-    </ul>
+        </p>
 
     <br><br>
     <a href="{{ url_for('home') }}" class="nav-button">Home</a>

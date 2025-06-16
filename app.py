@@ -1,7 +1,7 @@
 # %%  Imports and initial configurations
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_cors import CORS
-from models import db, Item, Sale, Stock_Addition  # Assuming models.py (in repo) contains the SQLAlchemy models
+from models import db, Item, Sale, Stock_Addition, Salesperson  # Assuming models.py (in repo) contains the SQLAlchemy models
 
 app = Flask(__name__)
 CORS(app)
@@ -21,7 +21,7 @@ def home():
 def hello():
     return jsonify({"message": "Probando el backend con Flask"})
 
-## Lists Item, Sales, Stock Added
+## Lists Item, Sales, Stock Additions
 
 @app.route('/items')
 def list_items():
@@ -68,11 +68,20 @@ def show_record_sale_form():
 def record_sale():
     item_id = int(request.form['item_id'])
     quantity = int(request.form['quantity'])
+    actual_price = float(request.form['actual_price'])
     
     item = Item.query.get(item_id)
+    
     if item and item.stock >= quantity:
-        total = item.price * quantity
-        new_sale = Sale(item_id=item_id, quantity=quantity, total=total)
+        
+        suggested_price = item.price
+        total = actual_price * quantity
+        #price_deviation = actual_price - item.price
+        new_sale = Sale(
+                        item_id=item_id, actual_price = actual_price, quantity=quantity,
+                        total=total, suggested_price=suggested_price, price_deviation = actual_price - suggested_price
+                        
+                        )
         # Update the item's quantity
         item.stock -= quantity
         db.session.add(new_sale)
@@ -106,15 +115,8 @@ def add_stock():
                 f"name: {item.name}\n old stock: {old_stock}\n new stock: {item.stock}\n "
                 f"movement number: {movement.id}\n movement timestamp: {movement.timestamp}"
             )
-    
     else:
         return "Wrong Item ID, or inexistent Item", 400
-
-
-
-
-
-
 
 
 

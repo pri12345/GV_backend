@@ -2,44 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Item List</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .nav-button { 
-            display: inline-block; 
-            padding: 10px 20px; 
-            margin: 5px; 
-            background-color: #007bff; 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 5px; 
-        }
-        .nav-button:hover { background-color: #0056b3; }
-
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .form-group label {
-            margin-right: 10px;
-        }
-        .suggestion {
-            margin-left: 10px;
-            color: gray;
-            font-style: italic;
-        }
-    </style> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List - Wholesale Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Item List</h1>
-    <ul>
-        {% for item in items %}
-            <li>{{ item.name }} - Item ID: {{ item.id }} - Cost: ${{ item.cost }} - Price: ${{ item.price }} - Quantity: {{ item.stock }} units</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <header class="header">
+            <h1>Item List</h1>
+        </header>
 
-    <br><br>
-    <a href="{{ url_for('home') }}" class="nav-button">Home</a>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Name</th>
+                        <th>Cost</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>${{ "%.2f"|format(item.cost) }}</td>
+                        <td>${{ "%.2f"|format(item.price) }}</td>
+                        <td>{{ item.stock }} units</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-button">Back to Home</a>
+            <a href="{{ url_for('show_add_item_form') }}" class="nav-button">Add New Item</a>
+        </nav>
+    </div>
 </body>
 </html>

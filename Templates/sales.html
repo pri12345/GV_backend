@@ -2,55 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sales List</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .nav-button { 
-            display: inline-block; 
-            padding: 10px 20px; 
-            margin: 5px; 
-            background-color: #007bff; 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 5px; 
-        }
-        .nav-button:hover { background-color: #0056b3; }
-
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .form-group label {
-            margin-right: 10px;
-        }
-        .suggestion {
-            margin-left: 10px;
-            color: gray;
-            font-style: italic;
-        }
-    </style> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales List - Wholesale Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Sales List</h1>
-    <p>
-        {% for sale in sales %}
-        
-                Sale number: {{sale.id}}<br>
-                Item ID: {{ sale.item_id }} <br>
-                Quantity: {{ sale.quantity }} units<br>
-                Sale Price: ${{ sale.actual_price }} <br>
-                Total: ${{ sale.total }}<br>
-                
-                Sale timestamp: {{sale.timestamp}} <br>
-                Suggested Price: ${{ sale.suggested_price }} <br>
-                Price deviation: ${{ sale.price_deviation }} <br><br><br>
-            
-            
-        {% endfor %}
-        </p>
+    <div class="container">
+        <header class="header">
+            <h1>Sales List</h1>
+        </header>
 
-    <br><br>
-    <a href="{{ url_for('home') }}" class="nav-button">Home</a>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sale ID</th>
+                        <th>Item ID</th>
+                        <th>Quantity</th>
+                        <th>Sale Price</th>
+                        <th>Total</th>
+                        <th>Timestamp</th>
+                        <th>Suggested Price</th>
+                        <th>Price Deviation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                    <tr>
+                        <td>{{ sale.id }}</td>
+                        <td>{{ sale.item_id }}</td>
+                        <td>{{ sale.quantity }} units</td>
+                        <td>${{ "%.2f"|format(sale.actual_price) }}</td>
+                        <td>${{ "%.2f"|format(sale.total) }}</td>
+                        <td>{{ sale.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>${{ "%.2f"|format(sale.suggested_price) }}</td>
+                        <td class="{{ 'success' if sale.price_deviation >= 0 else 'error' }}">
+                            ${{ "%.2f"|format(sale.price_deviation) }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <nav class="nav-container">
+            <a href="{{ url_for('home') }}" class="nav-button">Back to Home</a>
+            <a href="{{ url_for('show_record_sale_form') }}" class="nav-button">Record New Sale</a>
+        </nav>
+    </div>
 </body>
 </html>
